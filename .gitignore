@@ -1,0 +1,19 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+
+# testing
+coverage
+
+# misc
+.DS_Store
+.env
+npm-debug.log
+public/pics/**
+public/pics.json
+build/pics/**
+build/pics.json
+build/static/**
+_TRASH
+
