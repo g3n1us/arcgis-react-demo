@@ -1,4 +1,4 @@
-~THIS~ project takes the project below and is being used as an ArcGIS demonstration that plots photos on a map using EXIF information.
+*THIS* project takes the project below and is being used as an ArcGIS demonstration that plots photos on a map using EXIF information.
 
 Add photos to `public/pics` and run 
 ```
