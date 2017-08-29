@@ -1,3 +1,16 @@
+~THIS~ project takes the project below and is being used as an ArcGIS demonstration that plots photos on a map using EXIF information.
+
+Add photos to `public/pics` and run 
+```
+npm run process
+```
+This will grab the EXIF information and add it to a JSON file (`public/pics.json`) that is included in `reducers/map.js`
+
+>Note: non-JPEG images and those without EXIF GPS data are ignored
+
+
+---
+
 This project takes the base create-react-app template and adds the ArcGIS JS API v4.1 (and redux and react-bootstrap).
 
 The webpack config was deciphered from looking at 
