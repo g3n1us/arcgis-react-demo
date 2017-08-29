@@ -7,14 +7,14 @@ import Point from 'esri/geometry/Point';
 import SpatialReference from 'esri/geometry/SpatialReference';
 import points from '../../public/pics.json';
 import webMercatorUtils from 'esri/geometry/support/webMercatorUtils';
-console.log(points);
+// console.log(points);
 
 var mapped_points = points.filter(function(v){
 	return typeof v.lat === "object";
 
 });
 mapped_points = mapped_points.map(function(v){
-	console.log(v);
+// 	console.log(v);
 	var pointdata = {
 		x: v.lon[0] + (v.lon[1]/60) + (v.lon[2]/3600), 
 		y: v.lat[0] + (v.lat[1]/60) + (v.lat[2]/3600)
@@ -40,39 +40,40 @@ avg.y = avg.y / mapped_points.length;
 
 const map = (state = { }, action) => {
 
-    var citiesLayer = new FeatureLayer({
-		fields: [
-			{name: "ObjectID", alias: "ObjectID", type: "oid"},
-			{name: "location", alias: "location", type: "object"},
-		],
-		source: mapped_points,
 
-		renderer: new SimpleRenderer({ 
-			symbol: new PictureMarkerSymbol({
-				width: "30px",
-				height: "40px",
-				url: "http://reactapp.ebdev.americanmadeweb.com/icon.png",
-			}),
-		}),
-		objectIdField: "ObjectID",
-		geometryType: "point",
-		// 4326
-		// 4269
-		spatialReference: {wkid: 4326},
-		// popups
-		popupEnabled: true,
-		popupTemplate: {
-	        title: "Photo taken at: {lat}, {lon}",
-	        content: '<img src="http://reactapp.ebdev.americanmadeweb.com/{ObjectID}">',
-        },
-    });
+	if(action.type === 'CREATE_MAP'){
+	    var citiesLayer = new FeatureLayer({
+			fields: [
+				{name: "ObjectID", alias: "ObjectID", type: "oid"},
+				{name: "location", alias: "location", type: "object"},
+			],
+			source: mapped_points,
 	
-	var thismap = new EsriMap({
-		basemap: 'national-geographic',
-		layers: [citiesLayer],
-	});
-
-	if(action.type === 'CREATE_MAP')
+			renderer: new SimpleRenderer({ 
+				symbol: new PictureMarkerSymbol({
+					width: "30px",
+					height: "40px",
+					url: "http://reactapp.ebdev.americanmadeweb.com/icon.png",
+				}),
+			}),
+			objectIdField: "ObjectID",
+			geometryType: "point",
+			// 4326
+			// 4269
+			spatialReference: {wkid: 4326},
+			// popups
+			popupEnabled: true,
+			popupTemplate: {
+		        title: "Photo taken at: {lat}, {lon}",
+		        content: '<img src="http://reactapp.ebdev.americanmadeweb.com/{ObjectID}">',
+	        },
+	    });
+		
+		var thismap = new EsriMap({
+			basemap: 'national-geographic',
+			layers: [citiesLayer],
+		});
+	
 		return {
 			mapCtrl: new MapView({
 				container: action.domNode,
@@ -82,6 +83,8 @@ const map = (state = { }, action) => {
 			  
 			})
 		}
+	}
+		
 	else
 		return state;
 }

@@ -1,0 +1,10 @@
+.results_box{
+	width: 25vw;
+	height: 20vw;
+	position: absolute;
+	bottom: 1rem;
+	right: 1rem; 
+	background-color: white;
+	z-index: 5;
+	padding: 1rem;
+}
